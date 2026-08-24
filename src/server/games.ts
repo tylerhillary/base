@@ -3,7 +3,7 @@ import "server-only";
 import { FieldValue, Timestamp, type Query, type QueryDocumentSnapshot, type Transaction } from "firebase-admin/firestore";
 
 import type { GameDetail, GameParticipant, GameSummary } from "@/types/domain";
-import { collections, db, participantsOf, votesOf } from "./firebase";
+import { collections, getDb, participantsOf, votesOf } from "./firebase";
 import { badRequest, conflict, forbidden, notFound } from "./errors";
 import { createNotification } from "./notifications";
 import type { GameDocument, ParticipantDocument, UserDocument, VoteDocument } from "./types";
@@ -129,7 +129,7 @@ export const createGame = async (
     joinedAt: now
   };
 
-  const batch = db.batch();
+  const batch = getDb().batch();
   batch.set(gameRef, gameDocument);
   batch.set(participantsOf(gameRef.id).doc(actor.uid), organiser);
   await batch.commit();
@@ -149,7 +149,7 @@ export const joinGame = async (gameId: string, actor: { uid: string; displayName
   const gameRef = collections.games.doc(gameId);
   const participantRef = participantsOf(gameId).doc(actor.uid);
 
-  const result = await db.runTransaction(async (transaction) => {
+  const result = await getDb().runTransaction(async (transaction) => {
     const [gameSnapshot, participantSnapshot] = await transaction.getAll(gameRef, participantRef);
 
     if (!gameSnapshot.exists) throw notFound("Game not found");
@@ -238,7 +238,7 @@ const releaseSpot = async (
   const gameRef = collections.games.doc(gameId);
   const participantRef = participantsOf(gameId).doc(participantUserId);
 
-  return db.runTransaction(async (transaction) => {
+  return getDb().runTransaction(async (transaction) => {
     const [gameSnapshot, participantSnapshot] = await transaction.getAll(gameRef, participantRef);
 
     if (!gameSnapshot.exists) throw notFound("Game not found");
@@ -340,7 +340,7 @@ export const castVote = async (gameId: string, uid: string) => {
   const gameRef = collections.games.doc(gameId);
   const voteRef = votesOf(gameId).doc(uid);
 
-  const outcome = await db.runTransaction(async (transaction) => {
+  const outcome = await getDb().runTransaction(async (transaction) => {
     const [gameSnapshot, voteSnapshot] = await transaction.getAll(gameRef, voteRef);
 
     if (!gameSnapshot.exists) throw notFound("Game not found");
@@ -418,7 +418,7 @@ export const removeVote = async (gameId: string, uid: string) => {
   const gameRef = collections.games.doc(gameId);
   const voteRef = votesOf(gameId).doc(uid);
 
-  return db.runTransaction(async (transaction) => {
+  return getDb().runTransaction(async (transaction) => {
     const [gameSnapshot, voteSnapshot] = await transaction.getAll(gameRef, voteRef);
 
     if (!gameSnapshot.exists) throw notFound("Game not found");
@@ -474,7 +474,7 @@ export const invitePlayer = async (gameId: string, email: string, creatorId: str
   const status = game.participantCount >= game.maxPlayers ? "waitlisted" : "joined";
   const now = Timestamp.now();
 
-  const batch = db.batch();
+  const batch = getDb().batch();
   batch.set(participantRef, {
     gameId,
     userId: invitedUserId,
@@ -507,7 +507,7 @@ export const invitePlayer = async (gameId: string, email: string, creatorId: str
 export const cancelGame = async (gameId: string, creatorId: string) => {
   const gameRef = collections.games.doc(gameId);
 
-  const game = await db.runTransaction(async (transaction) => {
+  const game = await getDb().runTransaction(async (transaction) => {
     const snapshot = await transaction.get(gameRef);
 
     if (!snapshot.exists) throw notFound("Game not found");

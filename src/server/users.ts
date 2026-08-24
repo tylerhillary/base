@@ -3,7 +3,7 @@ import "server-only";
 import { Timestamp } from "firebase-admin/firestore";
 
 import type { GameSummary, UserProfile } from "@/types/domain";
-import { collections, db } from "./firebase";
+import { collections, getDb } from "./firebase";
 import type { GameDocument, UserDocument } from "./types";
 import type { UpdateProfileInput } from "./validators";
 
@@ -87,7 +87,7 @@ const gameIdsFromSubcollection = async (
   candidateGameIds: string[]
 ): Promise<Set<string>> => {
   try {
-    const snapshot = await db
+    const snapshot = await getDb()
       .collectionGroup(subcollection)
       .where("userId", "==", userId)
       .limit(300)
@@ -140,7 +140,7 @@ export const getUserProfile = async (userId: string): Promise<UserProfile> => {
   const missingIds = [...playedIds, ...votedIds].filter((id) => !gamesById.has(id));
 
   if (missingIds.length > 0) {
-    const extras = await db.getAll(
+    const extras = await getDb().getAll(
       ...missingIds.slice(0, 60).map((id) => collections.games.doc(id))
     );
 

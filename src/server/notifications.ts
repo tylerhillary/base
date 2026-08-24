@@ -3,7 +3,7 @@ import "server-only";
 import { Timestamp } from "firebase-admin/firestore";
 
 import type { NotificationItem } from "@/types/domain";
-import { collections, db } from "./firebase";
+import { collections, getDb } from "./firebase";
 import { forbidden, notFound } from "./errors";
 import type { NotificationDocument, NotificationType } from "./types";
 
@@ -98,7 +98,7 @@ export const markAllNotificationsRead = async (userId: string) => {
   }
 
   const now = Timestamp.now();
-  const batch = db.batch();
+  const batch = getDb().batch();
   for (const document of pending) {
     batch.update(document.ref, { read: true, readAt: now });
   }

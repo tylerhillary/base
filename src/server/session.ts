@@ -4,7 +4,7 @@ import { cache } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { adminAuth } from "./firebase";
+import { getAdminAuth } from "./firebase";
 import { unauthorized } from "./errors";
 
 /**
@@ -43,7 +43,7 @@ export const getCurrentUser = cache(async (): Promise<SessionUser | null> => {
 
   try {
     // `true` also checks the token against revoked/disabled accounts.
-    const claims = await adminAuth.verifySessionCookie(session, true);
+    const claims = await getAdminAuth().verifySessionCookie(session, true);
 
     return {
       uid: claims.uid,
@@ -104,9 +104,9 @@ export interface MintedSession {
  */
 export const createSessionCookie = async (idToken: string): Promise<MintedSession> => {
   // Verified first so a forged token never reaches cookie minting.
-  const claims = await adminAuth.verifyIdToken(idToken);
+  const claims = await getAdminAuth().verifyIdToken(idToken);
 
-  const cookie = await adminAuth.createSessionCookie(idToken, {
+  const cookie = await getAdminAuth().createSessionCookie(idToken, {
     expiresIn: SESSION_MAX_AGE_MS
   });
 
