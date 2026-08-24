@@ -1,0 +1,29 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+.turbo/
+
+# Secrets — never commit these
+.env
+.env.local
+.env.*.local
+*-firebase-adminsdk-*.json
+!.env.example
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+.DS_Store
+
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# Local npm cache
+.npm-cache/
+
+# Machine-local editor/agent settings
+.claude/settings.local.json

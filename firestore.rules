@@ -1,0 +1,68 @@
+rules_version = '2';
+
+/*
+ * BASE-0 security rules.
+ *
+ * Almost all data access happens on the server through the Firebase Admin SDK,
+ * which bypasses these rules entirely — Server Actions authenticate the caller
+ * from a session cookie and enforce the real business rules (who may vote, who
+ * may kick, who may read a chat).
+ *
+ * That leaves exactly one thing the browser talks to Firestore for: the live
+ * chat listener. So these rules grant narrow read access for that, and deny
+ * client writes everywhere. If a write is ever rejected here, the fix is to
+ * route it through a Server Action, not to loosen a rule.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOnRoster(gameId) {
+      return signedIn() && exists(
+        /databases/$(database)/documents/games/$(gameId)/participants/$(request.auth.uid)
+      );
+    }
+
+    function isOrganiser(gameId) {
+      return signedIn() && get(
+        /databases/$(database)/documents/games/$(gameId)
+      ).data.createdBy == request.auth.uid;
+    }
+
+    match /users/{userId} {
+      allow read: if signedIn();
+      allow write: if false;          // server only
+    }
+
+    match /games/{gameId} {
+      allow read: if signedIn();
+      allow write: if false;          // server only
+
+      // The live chat listener. Private to the roster.
+      match /chat/{messageId} {
+        allow read: if isOnRoster(gameId) || isOrganiser(gameId);
+        allow write: if false;        // sent via the sendChatMessage action
+      }
+
+      match /participants/{userId} {
+        allow read: if signedIn();
+        allow write: if false;        // join/leave/kick actions
+      }
+
+      match /votes/{userId} {
+        allow read: if signedIn();
+        allow write: if false;        // vote/removeVote actions
+      }
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if signedIn() && resource.data.recipientUserId == request.auth.uid;
+      allow write: if false;          // server only
+    }
+
+    // Anything not matched above is denied by default.
+  }
+}

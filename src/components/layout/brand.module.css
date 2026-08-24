@@ -1,0 +1,32 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: opacity var(--d-fast) var(--ease-out);
+}
+
+.brand:hover {
+  opacity: 0.85;
+}
+
+.mark {
+  flex: none;
+  transition: transform var(--d-slow) var(--ease-spring);
+}
+
+.brand:hover .mark {
+  transform: rotate(45deg);
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.zero {
+  color: var(--accent);
+}

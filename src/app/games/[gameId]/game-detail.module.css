@@ -1,0 +1,563 @@
+.page {
+  --tint: var(--accent);
+}
+
+/* ---- Breadcrumb ---------------------------------------------------------- */
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--s-6);
+  font-size: var(--t-sm);
+  color: var(--text-subtle);
+}
+
+.crumbLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  /* Vertical padding keeps the touch target comfortable without moving the text. */
+  padding-block: 0.5rem;
+  margin-block: -0.5rem;
+  color: var(--text-muted);
+  transition: color var(--d-fast) var(--ease-out);
+}
+
+.crumbLink:hover {
+  color: var(--accent);
+}
+
+.crumbCurrent {
+  color: var(--text);
+  max-width: 24rem;
+}
+
+/* ---- Hero ---------------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid color-mix(in srgb, var(--tint) 30%, var(--line));
+  border-radius: var(--r-xl);
+  background:
+    radial-gradient(90% 150% at 92% 0%, color-mix(in srgb, var(--tint) 16%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--surface-2), var(--surface-1)),
+    var(--surface-solid);
+  overflow: hidden;
+}
+
+.heroTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--s-4);
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: flex-start;
+  gap: var(--s-8);
+}
+
+.heroTitle {
+  font-size: clamp(1.75rem, 4.5vw, 3rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.heroDescription {
+  max-width: 52ch;
+  margin-top: var(--s-4);
+  color: var(--text-muted);
+  font-size: var(--t-md);
+  line-height: 1.6;
+}
+
+.heroFacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-6);
+  margin-top: var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+}
+
+.fact {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+}
+
+.fact svg {
+  flex: none;
+  color: var(--tint);
+}
+
+.fact b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.heroAside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-1);
+  text-align: center;
+  min-width: 11rem;
+}
+
+.heroAsideLabel {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.heroAsideValue {
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Stat row ------------------------------------------------------------ */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--s-4);
+}
+
+/* ---- Layout -------------------------------------------------------------- */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-6);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  min-width: 0;
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + var(--s-4));
+}
+
+/* ---- Location ------------------------------------------------------------ */
+.location {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.locationPin {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  border: 1px solid color-mix(in srgb, var(--tint) 32%, transparent);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--tint) 12%, transparent);
+  color: var(--tint);
+}
+
+.locationBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.locationName {
+  font-family: var(--font-display);
+  font-size: var(--t-md);
+  font-weight: 600;
+}
+
+.locationAddress {
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+  margin-top: 0.1rem;
+}
+
+.locationCoords {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--text-subtle);
+}
+
+/* ---- Roster -------------------------------------------------------------- */
+.rosterMeter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--line);
+}
+
+.rosterMeterTop {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.rosterMeterTop b {
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+}
+
+.rosterMeterTop span {
+  color: var(--text-subtle);
+}
+
+.rosterMeterTop em {
+  margin-left: auto;
+  font-style: normal;
+  color: var(--text-subtle);
+  font-size: var(--t-xs);
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-6);
+  transition: background var(--d-fast) var(--ease-out);
+}
+
+.player + .player {
+  border-top: 1px solid var(--line);
+}
+
+.player:hover {
+  background: var(--surface-1);
+}
+
+.playerBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.playerName {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--t-sm);
+  font-weight: 600;
+}
+
+.playerMeta {
+  color: var(--text-subtle);
+  font-size: var(--t-xs);
+}
+
+.playerAction {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  border-radius: var(--r-full);
+  color: var(--text-subtle);
+  transition: background var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out);
+}
+
+.playerAction:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--signal-danger) 16%, transparent);
+  color: var(--signal-danger);
+}
+
+.you {
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--r-xs);
+  background: var(--accent-dim);
+  color: var(--text-gold);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---- Invite -------------------------------------------------------------- */
+.inviteForm {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.inviteInput {
+  flex: 1;
+  min-width: 0;
+  height: 2.75rem;
+  padding-inline: 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  font-size: var(--t-sm);
+  transition: border-color var(--d-fast) var(--ease-out), box-shadow var(--d-fast) var(--ease-out);
+}
+
+.inviteInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* ---- Actions panel ------------------------------------------------------- */
+.actionStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.voteBlock {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+}
+
+.voteBlockBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.voteBlockValue {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.voteBlockValue span {
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  color: var(--text-subtle);
+}
+
+.voteBlockLabel {
+  margin-top: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.secondaryActions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: var(--s-2);
+}
+
+.dangerZone {
+  margin-top: var(--s-2);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+/* ---- Chat ---------------------------------------------------------------- */
+.chatTransport {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--text-subtle);
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  height: 24rem;
+  padding: var(--s-5) var(--s-6);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.daySeparator {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-block: var(--s-2);
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.daySeparator::before,
+.daySeparator::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.message {
+  display: flex;
+  gap: var(--s-3);
+  max-width: 90%;
+  animation: rise var(--d-fast) var(--ease-out) both;
+}
+
+.messageMine {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+.bubble {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  border-top-left-radius: var(--r-xs);
+  background: var(--surface-2);
+  min-width: 0;
+}
+
+.messageMine .bubble {
+  border-top-left-radius: var(--r-md);
+  border-top-right-radius: var(--r-xs);
+  border-color: var(--line-gold);
+  background: var(--accent-dim);
+}
+
+.bubbleHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  margin-bottom: 0.2rem;
+}
+
+.bubbleName {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.bubbleTime {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-subtle);
+}
+
+.bubbleText {
+  font-size: var(--t-sm);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.pending {
+  opacity: 0.6;
+}
+
+.chatForm {
+  display: flex;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-6);
+  border-top: 1px solid var(--line);
+}
+
+.chatInput {
+  flex: 1;
+  min-width: 0;
+  height: 2.75rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-full);
+  background: var(--surface-1);
+  font-size: var(--t-sm);
+  transition: border-color var(--d-fast) var(--ease-out), box-shadow var(--d-fast) var(--ease-out);
+}
+
+.chatInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.chatLocked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-12) var(--s-6);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.chatLockedIcon {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  background: var(--surface-2);
+  color: var(--text-subtle);
+}
+
+.scrollPin {
+  position: sticky;
+  bottom: 0;
+  align-self: center;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-full);
+  background: var(--surface-solid-2);
+  color: var(--text-muted);
+  font-size: var(--t-xs);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---- Responsive ---------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    order: -1;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroAside {
+    align-self: flex-start;
+  }
+}

@@ -1,0 +1,261 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.optional {
+  margin-left: auto;
+  color: var(--text-subtle);
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.control {
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  color: var(--text);
+  font-size: var(--t-base);
+  transition:
+    border-color var(--d-fast) var(--ease-out),
+    background var(--d-fast) var(--ease-out),
+    box-shadow var(--d-fast) var(--ease-out);
+}
+
+.control::placeholder {
+  color: var(--text-subtle);
+}
+
+.control:hover:not(:disabled):not(:focus) {
+  border-color: var(--line-gold);
+}
+
+.control:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.control:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.control[aria-invalid="true"] {
+  border-color: color-mix(in srgb, var(--signal-danger) 60%, transparent);
+}
+
+.control[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--signal-danger) 22%, transparent);
+}
+
+.withIcon {
+  padding-left: 2.5rem;
+}
+
+.icon {
+  position: absolute;
+  left: 0.85rem;
+  color: var(--text-subtle);
+  pointer-events: none;
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.select {
+  appearance: none;
+  padding-right: 2.4rem;
+  cursor: pointer;
+}
+
+.selectChevron {
+  position: absolute;
+  right: 0.9rem;
+  color: var(--text-subtle);
+  pointer-events: none;
+}
+
+/* Date/time controls keep the native picker but match the theme. */
+.control[type="datetime-local"],
+.control[type="date"],
+.control[type="time"] {
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+}
+
+.control::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) sepia(1) saturate(3) hue-rotate(4deg);
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+:root[data-theme="light"] .control::-webkit-calendar-picker-indicator {
+  filter: none;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 1rem;
+}
+
+.hint {
+  font-size: var(--t-xs);
+  color: var(--text-subtle);
+  line-height: 1.4;
+}
+
+.counter {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--t-xs);
+  color: var(--signal-danger);
+}
+
+/* ---- Chip picker --------------------------------------------------------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.chip {
+  --chip-tint: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-full);
+  background: var(--surface-1);
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  transition:
+    border-color var(--d-fast) var(--ease-out),
+    background var(--d-fast) var(--ease-out),
+    color var(--d-fast) var(--ease-out),
+    transform var(--d-fast) var(--ease-spring);
+}
+
+.chip:hover {
+  border-color: color-mix(in srgb, var(--chip-tint) 45%, transparent);
+  color: var(--text);
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+.chipSelected {
+  border-color: color-mix(in srgb, var(--chip-tint) 55%, transparent);
+  background: color-mix(in srgb, var(--chip-tint) 14%, transparent);
+  color: var(--text);
+}
+
+.chipCheck {
+  color: var(--chip-tint);
+}
+
+/* ---- Segmented control --------------------------------------------------- */
+.segmented {
+  display: inline-flex;
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  background: var(--surface-1);
+  gap: 0.15rem;
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--r-full);
+  color: var(--text-subtle);
+  font-family: var(--font-display);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out);
+}
+
+.segment:hover {
+  color: var(--text);
+}
+
+.segmentActive {
+  background: var(--surface-3);
+  color: var(--text);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ---- Password reveal ---------------------------------------------------- */
+.withAction {
+  padding-right: 2.9rem;
+}
+
+.reveal {
+  position: absolute;
+  right: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--r-sm);
+  color: var(--text-subtle);
+  transition: color var(--d-fast) var(--ease-out), background var(--d-fast) var(--ease-out);
+}
+
+.reveal:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.reveal[aria-pressed="true"] {
+  color: var(--accent);
+}

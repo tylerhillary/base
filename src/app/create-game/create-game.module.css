@@ -1,0 +1,303 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-6);
+}
+
+/* ---- Stepper ------------------------------------------------------------- */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--line);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--r-full);
+  color: var(--text-subtle);
+  font-family: var(--font-display);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out);
+}
+
+.stepActive {
+  background: var(--accent-dim);
+  color: var(--text-gold);
+}
+
+.stepDone {
+  color: var(--signal-live);
+}
+
+.stepIndex {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+  border: 1px solid currentColor;
+  border-radius: var(--r-full);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.stepDone .stepIndex {
+  background: color-mix(in srgb, var(--signal-live) 18%, transparent);
+}
+
+.stepRule {
+  flex: 1;
+  height: 1px;
+  min-width: 0.75rem;
+  background: var(--line);
+}
+
+/* ---- Form ---------------------------------------------------------------- */
+.panelForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding: var(--s-6);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+}
+
+.legend {
+  margin-bottom: var(--s-2);
+}
+
+.legendTitle {
+  font-size: var(--t-md);
+}
+
+.legendText {
+  margin-top: 0.2rem;
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+}
+
+/* ---- Sport picker -------------------------------------------------------- */
+.sportGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--s-3);
+}
+
+.sportOption {
+  --tint: var(--accent);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: var(--s-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  text-align: left;
+  transition: all var(--d-fast) var(--ease-out);
+}
+
+.sportOption:hover {
+  border-color: color-mix(in srgb, var(--tint) 45%, transparent);
+  transform: translateY(-2px);
+}
+
+.sportSelected {
+  border-color: color-mix(in srgb, var(--tint) 60%, transparent);
+  background: color-mix(in srgb, var(--tint) 12%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--tint) 30%, transparent);
+}
+
+.sportName {
+  font-family: var(--font-display);
+  font-size: var(--t-sm);
+  font-weight: 700;
+}
+
+.sportBlurb {
+  color: var(--text-subtle);
+  font-size: var(--t-xs);
+  line-height: 1.4;
+}
+
+/* ---- Quick presets ------------------------------------------------------- */
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.preset {
+  padding: 0.4rem 0.75rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-full);
+  color: var(--text-muted);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  transition: all var(--d-fast) var(--ease-out);
+}
+
+.preset:hover {
+  border-style: solid;
+  border-color: var(--line-gold);
+  color: var(--text-gold);
+  background: var(--accent-dim);
+}
+
+/* ---- Roster stepper ------------------------------------------------------ */
+.counter {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.counterButton {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  color: var(--text-muted);
+  transition: all var(--d-fast) var(--ease-out);
+}
+
+.counterButton:hover:not(:disabled) {
+  border-color: var(--line-gold);
+  color: var(--text);
+}
+
+.counterValue {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.counterHint {
+  color: var(--text-subtle);
+  font-size: var(--t-xs);
+  text-align: center;
+}
+
+/* ---- Footer -------------------------------------------------------------- */
+.formFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-6);
+  border-top: 1px solid var(--line);
+  background: var(--surface-1);
+}
+
+.formFooterSpacer {
+  flex: 1;
+}
+
+/* ---- Preview ------------------------------------------------------------- */
+.preview {
+  position: sticky;
+  top: calc(var(--header-h) + var(--s-4));
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.previewLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.tip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+  line-height: 1.5;
+}
+
+.tip svg {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--accent);
+}
+
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .preview {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stepper {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .stepper::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---- Optional location pin -------------------------------------------- */
+.locationAside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3) var(--s-4);
+}
+
+.locationPinned,
+.locationHint {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1 1 16rem;
+  font-size: var(--t-xs);
+  line-height: 1.5;
+}
+
+.locationPinned {
+  color: var(--signal-live);
+}
+
+.locationHint {
+  color: var(--text-subtle);
+}
