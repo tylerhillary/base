@@ -45,8 +45,33 @@ const monoFont = JetBrains_Mono({
  */
 export const dynamic = "force-dynamic";
 
+/**
+ * `metadataBase` only accepts an absolute URL, and `new URL` throws on anything
+ * else — at module scope, which fails the whole build rather than one page.
+ * `??` alone is not enough: an empty string, a bare hostname, or a placeholder
+ * substituted by the host all get past it. So parse defensively and fall back.
+ */
+const siteUrl = (() => {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const fallback = "http://localhost:3000";
+
+  if (!configured) return new URL(fallback);
+
+  try {
+    return new URL(configured);
+  } catch {
+    // Accept a bare hostname like "example.vercel.app" by assuming https.
+    try {
+      return new URL(`https://${configured}`);
+    } catch {
+      console.warn(`[metadata] NEXT_PUBLIC_SITE_URL is not a usable URL: ${configured}`);
+      return new URL(fallback);
+    }
+  }
+})();
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: siteUrl,
   title: {
     default: "BASE-0 · Pickup sports, organised",
     template: "%s · BASE-0"

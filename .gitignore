@@ -27,3 +27,5 @@ pnpm-debug.log*
 
 # Machine-local editor/agent settings
 .claude/settings.local.json
+.vercel
+.env*
