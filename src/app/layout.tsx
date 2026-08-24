@@ -36,6 +36,15 @@ const monoFont = JetBrains_Mono({
   fallback: ["ui-monospace", "SFMono-Regular", "Consolas", "Liberation Mono", "monospace"]
 });
 
+/*
+ * Every route in this app reads the session cookie in the root layout, so none
+ * of them can be prerendered — the build output already marks them all dynamic.
+ * Saying so explicitly stops Next attempting to collect page data for routes it
+ * generates itself (notably /_not-found), which otherwise renders this layout
+ * at build time on a machine that has no Firebase credentials.
+ */
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
